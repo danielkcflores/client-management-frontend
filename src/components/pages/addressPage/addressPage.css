@@ -1,0 +1,33 @@
+/* src/components/pages/addressPage/addressPage.css */
+.address-page-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .address-page-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .address-page-container p {
+    font-size: 18px;
+  }
+
+  .address-menu { 
+    display: flex;
+    position: absolute;
+    top: 48px;
+    left: 20px;
+  }
+
+  .back-address-button {
+    flex: 1;
+    flex-direction: column;
+    background-color: #00B4FF;
+    color: black;
+    padding: 10px 20px;
+    border: #00B4FF;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+  }

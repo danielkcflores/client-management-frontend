@@ -1,0 +1,84 @@
+.modal-dependents-overlay {
+  background-color: #6943B480; /* Fundo verde transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal-dependents {
+  background-color: #000; /* Cor de fundo do modal-dependents */
+  border-radius: 10px;
+  width: 400px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  position: relative;
+}
+
+.modal-dependents-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00B4FF;
+  border-radius: 50px;
+}
+
+.modal-dependents-header h2 {
+  margin-left: 25px;
+  color: #000;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.close-btn {
+  background-color: #BB2C5C;
+  font-size: 20px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.modal-dependents-form {
+  padding: 20px;
+  background-color: #000;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.modal-dependents-form input {
+  display: flex;
+  align-self: center;
+  border-radius: 20px;
+  padding-left: 10px;
+  background-color: #000;
+  height: 30px;
+  color: #00B4FF;
+  border-color: #00B4FF;
+  margin-bottom: 10px;
+  width: 97%
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.form-buttons button {
+  border-radius: 20px;
+  height: 30px;
+  width: 100px;
+  border-color: #00B4FF;
+  background-color: #00B4FF;
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: #00B4FF80; /* Change this to your desired color */
+}

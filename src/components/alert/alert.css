@@ -1,0 +1,36 @@
+/* alert.css */
+.alert-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #6943B499;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .alert {
+    background-color: #1b1b1c;
+    border-radius: 60px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .alert-message {
+    color: #F4D000;
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .alert-close-btn {
+    background-color: #F4D000;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
