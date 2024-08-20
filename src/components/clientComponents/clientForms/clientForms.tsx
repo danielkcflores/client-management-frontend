@@ -24,7 +24,6 @@ const FormularioModal: React.FC<FormularioModalProps> = ({
 }) => {
   const [name, setName] = useState(client?.name || '');
   const [cpf, setCpf] = useState(client?.cpf || '');
-  const [telefone, setTelefone] = useState(client?.telefone || '');
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const handleCpfMask = useCallback((value: string): string => {
@@ -32,18 +31,12 @@ const FormularioModal: React.FC<FormularioModalProps> = ({
     return digits.slice(0, 11).replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
   }, []);
 
-  const handleTelefoneMask = useCallback((value: string): string => {
-    const digits = value.replace(/\D/g, '');
-    return digits.slice(0, 11).replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-  }, []);
-
   useEffect(() => {
     setCpf(handleCpfMask(client?.cpf || ''));
-    setTelefone(handleTelefoneMask(client?.telefone || ''));
-  }, [client, handleCpfMask, handleTelefoneMask]);
+  }, [client, handleCpfMask]);
 
   const validateInputs = useCallback(() => {
-    if (!name || !cpf || !telefone) {
+    if (!name || !cpf ) {
       setAlertMessage('Preencha todos os campos!');
       return false;
     }
@@ -53,13 +46,8 @@ const FormularioModal: React.FC<FormularioModalProps> = ({
       return false;
     }
 
-    if (telefone.replace(/\D/g, '').length !== 11) {
-      setAlertMessage('Telefone deve ter 11 dígitos!');
-      return false;
-    }
-
     return true;
-  }, [name, cpf, telefone]);
+  }, [name, cpf]);
 
   const handleSubmit = async () => {
     if (!validateInputs()) return;
@@ -76,7 +64,6 @@ const FormularioModal: React.FC<FormularioModalProps> = ({
       const data = {
         name,
         cpf,
-        telefone,
       };
 
       if (isEditing) {
@@ -88,7 +75,6 @@ const FormularioModal: React.FC<FormularioModalProps> = ({
       loadClients();
       setName('');
       setCpf('');
-      setTelefone('');
       onClose();
     } catch (error) {
       console.error(error);
@@ -127,12 +113,6 @@ const FormularioModal: React.FC<FormularioModalProps> = ({
           disabled={isEditing}
           style={isEditing ? { color: '#00B4FF80' } : {}}
           aria-label="CPF do cliente"
-        />
-        <input
-          placeholder="Telefone..."
-          value={telefone}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTelefone(handleTelefoneMask(e.target.value))}
-          aria-label="Telefone do cliente"
         />
         <div className="form-buttons">
           <button onClick={handleSubmit} style={{ backgroundColor: '#00B4FF' }}>

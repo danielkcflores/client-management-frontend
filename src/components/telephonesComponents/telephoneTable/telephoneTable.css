@@ -1,0 +1,65 @@
+.table-telephone-container {
+    padding: 16px;
+  }
+  
+  .table-telephone-header {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #00B4FF;
+    text-align: center;
+  }
+  
+  .table-telephone {
+    border: 2px solid #00B4FF;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0; /* Remove espaçamento entre as células */
+    width: 90vw; /* Tabela ocupa toda a largura da tela */
+    border-radius: 40px 40px 0px 0px;
+  }
+  
+  .table-telephone-row {
+    display: contents; /* Mantém a estrutura das linhas enquanto usa grid */
+  }
+  
+  .table-telephone-cell {
+    border-bottom: 1px solid #00B4FF;
+    border-right: 1px solid #00B4FF;
+    padding: 8px;
+    text-align: center;
+    color: #00B4FF;
+    white-space: normal; /* Permite quebra de linha automática */
+    word-wrap: break-word; /* Quebra palavras longas */
+    font-size: 16px;
+  }
+  
+  .table-telephone-cell:last-child {
+    border-right: none;
+  }
+  
+  .table-telephone-cell button {
+    margin: 0 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .telephone-delete-btn {
+    color: #BB2C5C;
+  
+    :hover {
+      color: hsl(348, 100%, 30%);
+    }
+  }
+  
+  .telephone-edit-btn {
+    color: #F4D000;
+  
+    :hover {
+      color: hsl(48, 100%, 30%);
+    }
+  }
+  
+  

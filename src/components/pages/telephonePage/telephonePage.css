@@ -1,0 +1,32 @@
+.telephone-page-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .telephone-page-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .telephone-page-container p {
+    font-size: 18px;
+  }
+
+  .telephone-menu { 
+    display: flex;
+    position: absolute;
+    top: 48px;
+    left: 20px;
+  }
+
+  .back-telephone-button {
+    flex: 1;
+    flex-direction: column;
+    background-color: #00B4FF;
+    color: black;
+    padding: 10px 20px;
+    border: #00B4FF;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+  }

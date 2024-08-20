@@ -13,7 +13,7 @@
 .table {
   border: 2px solid #00B4FF;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Definir 4 colunas de largura igual */
+  grid-template-columns: repeat(3, 1fr); /* Definir 4 colunas de largura igual */
   gap: 0; /* Remove espaçamento entre as células */
   width: 90vw; /* Tabela ocupa toda a largura da tela */
   border-radius: 40px 40px 0px 0px;
@@ -79,3 +79,10 @@
   }
 }
 
+.client-link-telephone {
+  color: #6943B4;
+
+  :hover {
+    color: hsl(260, 46%, 28%);
+  }
+}

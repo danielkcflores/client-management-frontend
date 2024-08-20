@@ -4,7 +4,7 @@ import FormularioModal from '../clientForms/clientForms';
 import { deleteClient } from '../../services/clientService';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPersonBreastfeeding, faMapMarkerAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faTrash, faPersonBreastfeeding, faMapMarkerAlt, faWrench } from '@fortawesome/free-solid-svg-icons';
 
 interface ClientTableProps {
   loadClients: () => void;
@@ -39,15 +39,19 @@ const ClientTable: React.FC<ClientTableProps> = ({ loadClients, clientes }) => {
         <div className="table-row">
           <div className="table-cell">Nome</div>
           <div className="table-cell">CPF</div>
-          <div className="table-cell">Telefone</div>
           <div className="table-cell">Ações</div>
         </div>
         {clientes.map((cliente, index) => (
           <div key={index} className="table-row">
             <div className="table-cell">{cliente.name}</div>
             <div className="table-cell">{cliente.cpf}</div>
-            <div className="table-cell">{cliente.telefone}</div>
             <div className="table-cell">
+              <Link 
+                to="/telephones" 
+                state={{ id: cliente.id, name: cliente.name }}
+              >
+                <button className="client-link-telephone"><FontAwesomeIcon icon={faPhone} /></button>
+              </Link>
               <Link 
                 to="/dependents" 
                 state={{ id: cliente.id, name: cliente.name }}

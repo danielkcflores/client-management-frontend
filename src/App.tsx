@@ -4,6 +4,7 @@ import HomePage from './components/pages/homePage/homePage';
 import ClientPage from './components/pages/clientPage/clientPage';
 import AddressPage from './components/pages/addressPage/addressPage';
 import DependentPage from './components/pages/dependentPage/dependentPage';
+import TelephonePage from './components/pages/telephonePage/telephonePage';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/clients" element={<ClientPage />} />
         <Route path="/enderecos" element={<AddressPage />} />
         <Route path="/dependents" element={<DependentPage />} />
+        <Route path="/telephones" element={<TelephonePage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
