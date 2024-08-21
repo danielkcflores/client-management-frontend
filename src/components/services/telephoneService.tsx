@@ -16,7 +16,7 @@ export const getTelephones = async (clientId: string): Promise<Telephone[]> => {
 };
 
 export const searchTelephones = async (clientId: string, query: string): Promise<Telephone[]> => {
-  const response = await axios.get(`${apiUrl}/${clientId}/telephones/search?searchText=${query}`);
+  const response = await axios.get(`${apiUrl}/telephones/${clientId}/search?searchText=${query}`);
   return response.data;
 };
 

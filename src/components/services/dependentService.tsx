@@ -16,7 +16,7 @@ export const getDependents = async (clientId: string): Promise<Dependent[]> => {
 };
 
 export const searchDependents = async (clientId: string, query: string): Promise<Dependent[]> => {
-  const response = await axios.get(`${apiUrl}/${clientId}/dependents/search?searchText=${query}`);
+  const response = await axios.get(`${apiUrl}/dependents/${clientId}/search?searchText=${query}`);
   return response.data;
 };
 
