@@ -1,67 +1,86 @@
 .app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #000;
-    min-height: 100vh;
-    color: #fff;
-  }
-  
-  .header {
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .header-text {
-    font-size: 40px;
-    font-weight: bold;
-    color: #00B4FF;
-  }
-  
-  .header-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 30px;
-    width: 90vw;
-  }
-  
-  .header-buttons input {
-    flex: 1;
-    margin-left: 20px;
-    padding: 5px;
-    padding-left: 10px;
-    border-radius: 20px;
-    background-color: #000;
-    border-color: #00B4FF;
-    font-size: 18px;
-  }
-  
-  .header-buttons button {
-    background-color: #00B4FF;
-    color: #151515;
-    border-radius: 15px;
-    height: 30px;
-    width: 120px;
-    border-color: #00B4FF;
-    cursor: pointer;
-    font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.header {
+  padding: 10px;
+  text-align: center;
+}
+
+.header-text {
+  font-size: 40px;
+  font-weight: bold;
+  color: #00B4FF;
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 30px;
+  width: 90vw;
+}
+
+.header-buttons input {
+  flex: 1;
+  margin-left: 20px;
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 20px;
+  background-color: #000;
+  border-color: #00B4FF;
+  font-size: 18px;
+}
+
+.header-buttons button {
+  background-color: #00B4FF;
+  color: #151515;
+  border-radius: 15px;
+  height: 30px;
+  width: 120px;
+  border-color: #00B4FF;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.client-menu { 
+  display: flex;
+  position: absolute;
+  top: 48px;
+  left: 20px;
+}
+
+.back-client-button {
+  flex: 1;
+  flex-direction: column;
+  background-color: #00B4FF;
+  color: black;
+  padding: 10px 20px;
+  border: #00B4FF;
+  border-radius: 25px;
+  cursor: pointer;
   }
 
-  .client-menu { 
-    display: flex;
-    position: absolute;
-    top: 48px;
-    left: 20px;
-  }
-
-  .back-client-button {
-    flex: 1;
-    flex-direction: column;
-    background-color: #00B4FF;
-    color: black;
+  .report-button {
+    background-color: #00B4FF; /* Cor de fundo */
+    color: black; /* Cor do texto */
+    border: none;
+    border-radius: 40px;
     padding: 10px 20px;
-    border: #00B4FF;
-    border-radius: 25px;
+    font-size: 18px;
     cursor: pointer;
-    }
+    text-decoration: none;
+    margin-top: 30px;
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+  }
+  
+  .report-button:hover {
+    background-color: hsl(198, 100%, 30%); /* Cor ao passar o mouse */
+  }

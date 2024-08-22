@@ -4,9 +4,9 @@ import { getClients, searchClientes } from '../../services/clientService';
 import FormularioModal from '../../clientComponents/clientForms/clientForms';
 import ClientTable from '../../clientComponents/clientTable/clientTable';
 import './clientPage.css'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faPaste } from '@fortawesome/free-solid-svg-icons';
 
 const ClientPage: React.FC = () => {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const ClientPage: React.FC = () => {
   return (
     <div className="app-container">
       <div className="client-menu">
-        <button onClick={() => navigate(-1)} className="back-address-button">
+        <button onClick={() => navigate(-1)} className="back-client-button">
           <FontAwesomeIcon icon={faHome} />
         </button>
       </div>
@@ -85,6 +85,9 @@ const ClientPage: React.FC = () => {
         isEditing={false}
         loadClients={loadClients}
       />
+      <Link to="/reports">
+        <button className="report-button"><FontAwesomeIcon icon={faPaste} /></button>
+      </Link>
     </div>
   );
 };

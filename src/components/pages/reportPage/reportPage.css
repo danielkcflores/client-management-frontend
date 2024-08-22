@@ -1,0 +1,47 @@
+.back-dependent-button {
+    flex: 1;
+    flex-direction: column;
+    background-color: #00B4FF;
+    color: black;
+    padding: 10px 20px;
+    border: #00B4FF;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .print-button {
+    background-color: #00B4FF; /* Cor de fundo */
+    color: black; /* Cor do texto */
+    border: none;
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 30px;
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+}
+
+.print-button:hover {
+  background-color: hsl(198, 100%, 30%); /* Cor ao passar o mouse */
+}
+
+@media print {
+  /* Evita quebras de página dentro das células */
+  .table-report-row, .table-report-cell {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Estilo para a tabela se ajustar melhor ao tamanho da página */
+  .table-report {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed; /* Mantém as células com larguras fixas */
+  }
+  
+}
+

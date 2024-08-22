@@ -28,3 +28,21 @@
     background-color: #6943B4; /* Cor ao passar o mouse */
   }
   
+  .report-button {
+    background-color: #00B4FF; /* Cor de fundo */
+    color: black; /* Cor do texto */
+    border: none;
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 30px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .report-button:hover {
+    background-color: hsl(198, 100%, 30%); /* Cor ao passar o mouse */
+  }
