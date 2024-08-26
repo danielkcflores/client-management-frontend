@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getTelephones, searchTelephones } from '../../services/telephoneService';
 import { faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import TelephoneFormModal from '../../telephonesComponents/telephoneForms/telephoneForms';
-import TelephoneTable from '../../telephonesComponents/telephoneTable/telephoneTable';
+import TelephoneFormModal from '../../components/telephonesComponents/telephoneForms/telephoneForms';
+import TelephoneTable from '../../components/telephonesComponents/telephoneTable/telephoneTable';
 import './telephonePage.css'
 
 interface Telephone {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './clientTable.css';
 import FormularioModal from '../clientForms/clientForms';
-import { deleteClient } from '../../services/clientService';
+import { deleteClient } from '../../../services/clientService';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faTrash, faPersonBreastfeeding, faMapMarkerAlt, faWrench } from '@fortawesome/free-solid-svg-icons';

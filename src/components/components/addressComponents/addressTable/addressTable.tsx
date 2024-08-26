@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './addressTable.css';
 import AddressFormModal from '../addressForms/addressForms';
-import { deleteAddress } from '../../services/addressService';
+import { deleteAddress } from '../../../services/addressService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
 

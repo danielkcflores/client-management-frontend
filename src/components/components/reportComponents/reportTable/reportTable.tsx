@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getClientsReport } from '../../services/clientReportService';
+import { getClientsReport } from '../../../services/clientReportService';
 import './reportTable.css';
 
 interface Client {

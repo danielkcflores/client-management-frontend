@@ -3,7 +3,7 @@ import './reportPage.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faHome, faPrint } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import ClientReport from "../../reportComponents/reportTable/reportTable";
+import ClientReport from "../../components/reportComponents/reportTable/reportTable";
 
 export const ReportPage: React.FC = () => {
     const navigate = useNavigate();

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Modal from 'react-modal';
 import './addressForms.css';
-import { createAddress, updateAddress } from '../../services/addressService';
+import { createAddress, updateAddress } from '../../../services/addressService'
 import Alert from '../../alert/alert';
 
 Modal.setAppElement('#root');

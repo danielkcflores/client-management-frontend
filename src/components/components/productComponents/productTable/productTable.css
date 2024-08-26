@@ -1,0 +1,76 @@
+.table-container {
+    padding: 16px;
+    margin-top: -40px
+  }
+  
+  .table-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #00B4FF;
+    text-align: center;
+  }
+  
+  .product-table {
+    border: 2px solid #00B4FF;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Definir 4 colunas de largura igual */
+    gap: 0; /* Remove espaçamento entre as células */
+    width: 100%; /* Tabela ocupa toda a largura da tela */
+    border-radius: 40px 40px 0px 0px;
+  }
+  
+  .table-row {
+    display: contents; /* Mantém a estrutura das linhas enquanto usa grid */
+  }
+  
+  .table-cell {
+    border-bottom: 1px solid #00B4FF;
+    border-right: 1px solid #00B4FF;
+    padding: 8px;
+    text-align: center;
+    color: #00B4FF;
+    white-space: normal; /* Permite quebra de linha automática */
+    word-wrap: break-word; /* Quebra palavras longas */
+    font-size: 16px;
+  }
+  
+  .table-cell:last-child {
+    border-right: none;
+  }
+  
+  .table-cell button {
+    margin: 0 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  
+  .product-delete-btn {
+    color: #BB2C5C;
+  
+    :hover {
+      color: hsl(348, 100%, 30%);
+    }
+  }
+  
+  .product-edit-btn {
+    color: #F4D000;
+  
+    :hover {
+      color: hsl(48, 100%, 30%);
+    }
+  }
+
+  /* Adicione isso ao seu arquivo CSS */
+.product-edit-btn.disabled{
+  color: hsl(51, 100%, 18%); /* Cor de botão desativado, ajuste conforme necessário */
+  cursor: not-allowed;
+}
+
+.product-delete-btn.disabled {
+  color: hsl(340, 62%, 15%); /* Cor de botão desativado, ajuste conforme necessário */
+  cursor: not-allowed;
+}

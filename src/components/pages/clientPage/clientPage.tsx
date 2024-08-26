@@ -1,8 +1,8 @@
 // clientPage.tsx
 import React, { useState, useEffect } from 'react';
 import { getClients, searchClientes } from '../../services/clientService';
-import FormularioModal from '../../clientComponents/clientForms/clientForms';
-import ClientTable from '../../clientComponents/clientTable/clientTable';
+import FormularioModal from '../../components/clientComponents/clientForms/clientForms';
+import ClientTable from '../../components/clientComponents/clientTable/clientTable';
 import './clientPage.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

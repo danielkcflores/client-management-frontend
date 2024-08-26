@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAddresses, searchAddresses } from '../../services/addressService';
-import AddressFormModal from '../../addressComponents/addressForms/addressForms';
-import AddressTable from '../../addressComponents/addressTable/addressTable';
+import AddressFormModal from '../../components/addressComponents/addressForms/addressForms';
+import AddressTable from '../../components/addressComponents/addressTable/addressTable';
 import './addressPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Modal from 'react-modal';
 import './clientForms.css';
-import { createClient, updateClient, verificarCpf } from '../../services/clientService';
+import { createClient, updateClient, verificarCpf } from '../../../services/clientService';
 import Alert from '../../alert/alert';
 
 Modal.setAppElement('#root');

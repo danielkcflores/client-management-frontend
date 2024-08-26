@@ -1,7 +1,7 @@
 import { faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { deleteTelephone } from '../../services/telephoneService'
+import { deleteTelephone } from '../../../services/telephoneService'
 import TelephoneFormModal from "../telephoneForms/telephoneForms";
 import './telephoneTable.css'
 

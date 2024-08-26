@@ -1,7 +1,7 @@
 import { faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { deleteDependent } from "../../services/dependentService"; // Adicione a importação do deleteDependent
+import { deleteDependent } from "../../../services/dependentService"; // Adicione a importação do deleteDependent
 import DependentModal from "../dependentForms/dependentForms"; // Certifique-se de que o caminho está correto
 import './dependentTable.css'
 

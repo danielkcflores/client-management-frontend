@@ -21,10 +21,29 @@
     cursor: pointer;
     text-decoration: none;
     margin-top: 30px;
-    
+    margin-right: 5px;
+    width: 60px;
   }
   
   .navigate-button:hover {
+    background-color: #6943B4; /* Cor ao passar o mouse */
+  }
+
+  .navigate-purchase-button {
+    background-color: #00B4FF; /* Cor de fundo */
+    color: black; /* Cor do texto */
+    border: none;
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 5px;
+    width: 60px;
+  }
+  
+  .navigate-purchase-button:hover {
     background-color: #6943B4; /* Cor ao passar o mouse */
   }
   

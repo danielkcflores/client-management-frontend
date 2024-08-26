@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Modal from 'react-modal';
-import { createTelephone, updateTelephone } from '../../services/telephoneService';
+import { createTelephone, updateTelephone } from '../../../services/telephoneService';
 import Alert from '../../alert/alert';
 import './telephoneForms.css';
 
@@ -14,7 +14,7 @@ interface Telephone extends CreateTelephone {
     id: string;
 }
 
-interface TelephoneFormModalProps {
+interface PurchaseModalFormProps {
     isVisible: boolean;
     onClose: () => void;
     telephone: Telephone | null;
@@ -23,7 +23,7 @@ interface TelephoneFormModalProps {
     clientId: string;
 }
 
-const TelephoneFormModal: React.FC<TelephoneFormModalProps> = ({
+const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
     isVisible,
     onClose,
     telephone,
@@ -126,4 +126,4 @@ const TelephoneFormModal: React.FC<TelephoneFormModalProps> = ({
     );
 }
 
-export default TelephoneFormModal;
+export default PurchaseModalForm;

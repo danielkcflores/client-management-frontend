@@ -1,0 +1,40 @@
+/* src/styles/reportTable.css */
+.table-report-container {
+    padding: 16px;
+  }
+  
+  .table-report-header {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #00B4FF;
+    text-align: center;
+  }
+  
+  .purchase-table-report {
+    border: 2px solid #00B4FF;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Definir 6 colunas de largura igual */
+    gap: 0; /* Remove espaçamento entre as células */
+    width: 88vw; /* Tabela ocupa toda a largura da tela */
+    border-radius: 40px 40px 0px 0px;
+  }
+  
+  .table-report-row {
+    display: contents; /* Mantém a estrutura das linhas enquanto usa grid */
+  }
+  
+  .table-report-cell {
+    border-bottom: 1px solid #00B4FF;
+    border-right: 1px solid #00B4FF;
+    padding: 8px;
+    text-align: center;
+    color: #00B4FF;
+    white-space: normal; /* Permite quebra de linha automática */
+    word-wrap: break-word; /* Quebra palavras longas */
+    font-size: 16px;
+  }
+  
+  .table-report-cell:last-child {
+    border-right: none;
+  }

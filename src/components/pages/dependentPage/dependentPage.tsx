@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getDependents, searchDependents } from '../../services/dependentService';
 import { faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DependentFormModal from '../../dependentsComponents/dependentForms/dependentForms'; // Certifique-se de que o caminho está correto
-import DependentTable from '../../dependentsComponents/dependentTable/dependentTable'; // Certifique-se de que o caminho está correto
+import DependentFormModal from '../../components/dependentsComponents/dependentForms/dependentForms';
+import DependentTable from '../../components/dependentsComponents/dependentTable/dependentTable';
 import './dependentPage.css'
 
 interface Dependent {

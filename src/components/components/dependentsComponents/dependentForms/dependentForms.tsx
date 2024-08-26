@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Modal from 'react-modal';
-import { createDependent, updateDependent } from '../../services/dependentService';
+import { createDependent, updateDependent } from '../../../services/dependentService';
 import Alert from '../../alert/alert';
 import './dependentForms.css';
 
