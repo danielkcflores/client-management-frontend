@@ -58,7 +58,7 @@
     padding-left: 10px;
     background-color: #000;
     height: 30px;
-    color: #00B4FF80;
+    color: #00B4FF;
     border-color: #00B4FF;
     width: 100%;
   }
@@ -77,3 +77,4 @@
     background-color: #00B4FF;
     cursor: pointer;
   }
+  

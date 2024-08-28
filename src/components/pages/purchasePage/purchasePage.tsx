@@ -5,30 +5,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faHome, faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductForm from '../../components/productComponents/productForm/productForm';
 import { getProducts } from '../../services/productService';
-import { PurchaseModalForm } from '../../components/purchaseComponents/purchaseForm/purchaseForm';
+import PurchaseModalForm from '../../components/purchaseComponents/purchaseForm/purchaseForm';
 import PurchaseTable from '../../../components/components/purchaseComponents/purchaseTable/purchaseTable';
+import { searchPurchases } from '../../services/purchaseService';
 
 const PurchasePage: React.FC = () => {
   const navigate = useNavigate();
-  const [isProductFormModalVisible, setIsProductFormModalVisible] = useState(false);
-  const [isPurchaseFormModalVisible, setIsPurchaseFormModalVisible] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [productList, setProductList] = useState([]);
+  const [isProductFormModalVisible, setIsProductFormModalVisible] = useState<boolean>(false);
+  const [isPurchaseFormModalVisible, setIsPurchaseFormModalVisible] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>('');
+  const [productList, setProductList] = useState<any[]>([]);
+  const [purchases, setPurchases] = useState<any[]>([]); // Estado para as compras
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
 
   // Função para carregar os produtos
   const loadProducts = async () => {
     try {
       const data = await getProducts();
       setProductList(data);
-      console.log('Produtos carregados:', data);
     } catch (error) {
       console.error('Erro ao carregar os produtos:', error);
     }
   };
 
+  // Função para buscar as compras
+  const searchPurchasesByText = async (text: string) => {
+    try {
+      const data = await searchPurchases(text);
+      setPurchases(data);
+    } catch (error) {
+      console.error('Erro ao buscar compras:', error);
+    }
+  };
+
+  // Carregar produtos e compras inicialmente
   useEffect(() => {
     loadProducts();
   }, []);
+
+  useEffect(() => {
+    searchPurchasesByText(searchText); // Buscar compras sempre que searchText mudar
+  }, [searchText]);
 
   const toggleProductFormModal = () => {
     setIsProductFormModalVisible(!isProductFormModalVisible);
@@ -36,6 +53,23 @@ const PurchasePage: React.FC = () => {
 
   const togglePurchaseFormModal = () => {
     setIsPurchaseFormModalVisible(!isPurchaseFormModalVisible);
+  };
+
+  const handleOrderClick = () => {
+    const sortedPurchases = [...purchases].sort((a, b) => {
+      if (order === 'asc') {
+        return a.id - b.id;
+      } else {
+        return b.id - a.id;
+      }
+    });
+    setOrder(order === 'desc' ? 'asc' : 'desc');
+    setPurchases(sortedPurchases);
+  };
+
+  // Função para atualizar as compras após um cadastro
+  const refreshPurchases = () => {
+    searchPurchasesByText(searchText); // Recarrega as compras
   };
 
   return (
@@ -53,14 +87,14 @@ const PurchasePage: React.FC = () => {
         <h1 className="header-text">GERENCIAMENTO DE COMPRAS</h1>
       </header>
       <div className="header-buttons">
-        <button style={{ backgroundColor: '#F4D000', borderColor: '#F4D000', whiteSpace: 'nowrap' }}>
+        <button onClick={handleOrderClick} style={{ backgroundColor: '#F4D000', borderColor: '#F4D000', whiteSpace: 'nowrap' }}>
           A - Z
         </button>
         <button onClick={togglePurchaseFormModal}>
           Cadastrar
         </button>
         <input
-          placeholder="Pesquise uma compra..."
+          placeholder="Pesquise uma compra pela compra, cliente ou produto..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           style={{ color: '#00B4FF' }}
@@ -71,14 +105,16 @@ const PurchasePage: React.FC = () => {
         onClose={toggleProductFormModal}
         product={null}
         isEditing={false}
-        loadProducts={loadProducts} // Passa a função para recarregar produtos
-        productList={productList} // Passa a lista de produtos para o ProductForm
+        loadProducts={loadProducts}
+        productList={productList}
       />
       <PurchaseModalForm
         isVisible={isPurchaseFormModalVisible}
         onClose={togglePurchaseFormModal}
+        onPurchaseCreated={refreshPurchases} // Passa a função para atualizar as compras
+        products={productList} // Passa a lista de produtos atualizada
       />
-      <PurchaseTable />
+      <PurchaseTable purchases={purchases} /> {/* Passa as compras para a tabela */}
     </div>
   );
 };

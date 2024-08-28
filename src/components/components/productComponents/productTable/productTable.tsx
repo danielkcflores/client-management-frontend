@@ -8,8 +8,15 @@ import { faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
 interface ProductTableProps {
   produtos: Array<any>;
   loadProducts: () => void;
-  isEditing: boolean; // Adicionado para controlar a edição
+  isEditing: boolean;
 }
+
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(value);
+};
 
 const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isEditing }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,12 +24,13 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
   const [productList, setProductList] = useState<any[]>(produtos);
 
   useEffect(() => {
-    setProductList(produtos); // Atualiza a lista de produtos quando o prop mudar
+    setProductList(produtos);
   }, [produtos]);
 
   const handleEdit = (product: any) => {
     setEditingProduct(product);
     setIsModalVisible(true);
+    loadProducts(); // Chama a função loadProducts após a edição
   };
 
   const handleCloseModal = () => {
@@ -34,7 +42,8 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
     if (window.confirm('Deseja realmente excluir o produto?')) {
       try {
         await deleteProduct(productId);
-        loadProducts(); // Recarregar os produtos após a exclusão
+        loadProducts(); // Chama a função loadProducts após a exclusão
+        setProductList(productList.filter((product) => product.id !== productId)); // Atualiza o estado local do productList
       } catch (error) {
         console.error('Erro ao excluir o produto:', error);
       }
@@ -42,7 +51,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
   };
 
   return (
-    <div className="table-container">
+    <div className={`table-container ${isEditing ? 'disabled' : ''}`}>
       <h2 className="table-header">Lista de Produtos</h2>
       <div className="product-table">
         <div className="table-row">
@@ -53,21 +62,17 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
         {productList.map((product, index) => (
           <div key={index} className="table-row">
             <div className="table-cell">{product.name}</div>
-            <div className="table-cell">{product.price}</div>
+            <div className="table-cell">{formatCurrency(product.price)}</div>
             <div className="table-cell">
-              {/* Botão Editar */}
               <button
-                className={`product-edit-btn ${isEditing ? 'disabled' : ''}`}
+                className='product-edit-btn'
                 onClick={() => !isEditing && handleEdit(product)}
-                disabled={isEditing} // Desabilitar se estiver em modo edição
               >
                 <FontAwesomeIcon icon={faWrench} />
               </button>
-              {/* Botão Excluir */}
               <button
-                className={`product-delete-btn ${isEditing ? 'disabled' : ''}`}
+                className='product-delete-btn'
                 onClick={() => !isEditing && handleDelete(product.id)}
-                disabled={isEditing} // Desabilitar se estiver em modo edição
               >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
@@ -81,8 +86,8 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
           onClose={handleCloseModal}
           product={editingProduct}
           isEditing={true}
-          loadProducts={loadProducts} 
-          productList={productList} // Passa a lista atualizada para o formulário
+          loadProducts={loadProducts}
+          productList={productList}
         />
       )}
     </div>

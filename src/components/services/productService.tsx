@@ -22,9 +22,9 @@ export const createProduct = async (data: any): Promise<any> => {
   }
 };
 
-export const updateProduct = async (cpf: string, data: any): Promise<any> => {
+export const updateProduct = async (id: string, data: any): Promise<any> => {
   try {
-    const response = await axios.put(`${apiUrl}/atualizar/${cpf}`, data);
+    const response = await axios.put(`${apiUrl}/atualizar/${id}`, data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -32,9 +32,9 @@ export const updateProduct = async (cpf: string, data: any): Promise<any> => {
   }
 };
 
-export const deleteProduct = async (cpf: string): Promise<any> => {
+export const deleteProduct = async (id: string): Promise<any> => {
   try {
-    const response = await axios.delete(`${apiUrl}/deletar/${cpf}`);
+    const response = await axios.delete(`${apiUrl}/deletar/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -50,6 +50,16 @@ export const searchProducts = async (searchText: string): Promise<any> => {
       },
     });
     return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const verificarProduto = async (name: string, id?: string): Promise<boolean> => {
+  try {
+    const response = await axios.post(`${apiUrl}/verificar-produto`, { name, id });
+    return response.data.exists;
   } catch (error) {
     console.error(error);
     throw error;

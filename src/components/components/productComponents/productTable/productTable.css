@@ -64,13 +64,7 @@
     }
   }
 
-  /* Adicione isso ao seu arquivo CSS */
-.product-edit-btn.disabled{
-  color: hsl(51, 100%, 18%); /* Cor de botão desativado, ajuste conforme necessário */
-  cursor: not-allowed;
-}
-
-.product-delete-btn.disabled {
-  color: hsl(340, 62%, 15%); /* Cor de botão desativado, ajuste conforme necessário */
-  cursor: not-allowed;
+.disabled {
+  pointer-events: none;
+  opacity: 0.3;
 }

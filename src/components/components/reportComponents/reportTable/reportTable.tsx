@@ -41,46 +41,54 @@ const ClientReport = () => {
           <div className="table-report-cell">Dependentes</div>
           <div className="table-report-cell">Telefones</div>
         </div>
-        {clients.map(client => (
-          <div key={client.id} className="table-report-row">
-            <div className="table-report-cell">{client.id}</div>
-            <div className="table-report-cell">{client.name}</div>
-            <div className="table-report-cell">{client.cpf}</div>
-            <div className="table-report-cell">
-              {client.enderecos && client.enderecos.length > 0 
-                ? client.enderecos.map((endereco, index) => (
-                    <div key={endereco.rua + endereco.numero}>
-                      {`${endereco.rua}, ${endereco.numero} - ${endereco.bairro}, ${endereco.cidade} - ${endereco.uf}, ${endereco.cep}`}
-                      {/* Linha em branco após cada endereço */}
-                      <div style={{ height: '10px' }}></div>
-                    </div>
-                  ))
-                : ''}
+        {clients.length > 0 ? (
+          clients.map(client => (
+            <div key={client.id} className="table-report-row">
+              <div className="table-report-cell">{client.id}</div>
+              <div className="table-report-cell">{client.name}</div>
+              <div className="table-report-cell">{client.cpf}</div>
+              <div className="table-report-cell">
+                {client.enderecos && client.enderecos.length > 0 
+                  ? client.enderecos.map((endereco, index) => (
+                      <div key={endereco.rua + endereco.numero}>
+                        {`${endereco.rua}, ${endereco.numero} - ${endereco.bairro}, ${endereco.cidade} - ${endereco.uf}, ${endereco.cep}`}
+                        {/* Linha em branco após cada endereço */}
+                        <div style={{ height: '10px' }}></div>
+                      </div>
+                    ))
+                  : ''}
+              </div>
+              <div className="table-report-cell">
+                {client.dependentes && client.dependentes.length > 0 
+                  ? client.dependentes.map((dependent, index) => (
+                      <div key={dependent.id}>
+                        {dependent.nome}
+                        {/* Linha em branco após cada dependente */}
+                        <div style={{ height: '10px' }}></div>
+                      </div>
+                    ))
+                  : ''}
+              </div>
+              <div className="table-report-cell">
+                {client.telefones && client.telefones.length > 0 
+                  ? client.telefones.map((telefone, index) => (
+                      <div key={telefone.numero}>
+                        {telefone.numero}
+                        {/* Linha em branco após cada telefone */}
+                        <div style={{ height: '10px' }}></div>
+                      </div>
+                    ))
+                  : ''}
+              </div>
             </div>
-            <div className="table-report-cell">
-              {client.dependentes && client.dependentes.length > 0 
-                ? client.dependentes.map((dependent, index) => (
-                    <div key={dependent.id}>
-                      {dependent.nome}
-                      {/* Linha em branco após cada dependente */}
-                      <div style={{ height: '10px' }}></div>
-                    </div>
-                  ))
-                : ''}
-            </div>
-            <div className="table-report-cell">
-              {client.telefones && client.telefones.length > 0 
-                ? client.telefones.map((telefone, index) => (
-                    <div key={telefone.numero}>
-                      {telefone.numero}
-                      {/* Linha em branco após cada telefone */}
-                      <div style={{ height: '10px' }}></div>
-                    </div>
-                  ))
-                : ''}
+          ))
+        ) : (
+          <div className="table-report-row">
+            <div className="table-report-cell" style={{ textAlign: 'center', gridColumn: 'span 6' }}>
+              Nenhum cliente encontrado.
             </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

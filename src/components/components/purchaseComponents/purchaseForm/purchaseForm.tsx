@@ -1,20 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import './purchaseForm.css'; // Certifique-se de que este CSS está correto para o seu modal
+import { getClients } from '../../../services/clientService'; // Ajuste o caminho conforme necessário
+import { createPurchase } from '../../../services/purchaseService'; // Ajuste o caminho conforme necessário
+import Alert from '../../alert/alert'; // Certifique-se de que o caminho está correto
 
 Modal.setAppElement('#root');
 
 interface PurchaseModalFormProps {
   isVisible: boolean;
   onClose: () => void;
-  // Inclua outras propriedades que seu componente precisa
+  onPurchaseCreated: () => void; // Nova prop para a função de atualização
+  products: any[]; // Lista de produtos recebida como prop
 }
 
-export const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
+const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
   isVisible,
   onClose,
-  // Outras props
+  onPurchaseCreated,
+  products, // Recebe a lista de produtos
 }) => {
+  const [clients, setClients] = useState<any[]>([]);
+  const [selectedClient, setSelectedClient] = useState<number | ''>('');
+  const [selectedProduct, setSelectedProduct] = useState<number | ''>('');
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Função para buscar clientes
+    const fetchClients = async () => {
+      try {
+        const data = await getClients();
+        setClients(data);
+      } catch (error) {
+        console.error('Erro ao buscar clientes:', error);
+        setError('Erro ao buscar clientes. Tente novamente.');
+      }
+    };
+
+    fetchClients();
+  }, []);
+
+  const handleClientChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedClient(Number(e.target.value) || '');
+  };
+
+  const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedProduct(Number(e.target.value) || '');
+  };
+
+  const handleSubmit = async () => {
+    if (selectedClient && selectedProduct) {
+      try {
+        await createPurchase(selectedClient, selectedProduct);
+        onPurchaseCreated(); // Chama a função de atualização após o cadastro
+        onClose(); // Fecha o modal após o cadastro da compra
+      } catch (error) {
+        console.error('Erro ao cadastrar compra:', error);
+        setError('Erro ao cadastrar compra. Tente novamente.');
+      }
+    } else {
+      setError('Selecione um cliente e um produto.');
+    }
+  };
+
+  const handleAlertClose = () => {
+    setError(null);
+  };
+
   return (
     <Modal
       isOpen={isVisible}
@@ -29,20 +81,25 @@ export const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
         </button>
       </div>
       <div className="modal-purchase-form">
+        {error && <Alert message={error} onClose={handleAlertClose} />}
         <div className="select-container">
-          <select>
+          <select value={selectedClient} onChange={handleClientChange}>
             <option value="">Selecione um cliente</option>
-            {/* Inclua op es para os clientes aqui */}
+            {clients.map(client => (
+              <option key={client.id} value={client.id}>{client.name}</option>
+            ))}
           </select>
         </div>
         <div className="select-container">
-          <select>
+          <select value={selectedProduct} onChange={handleProductChange}>
             <option value="">Selecione um produto</option>
-            {/* Inclua op es para os produtos aqui */}
+            {products.map(product => (
+              <option key={product.id} value={product.id}>{product.name}</option>
+            ))}
           </select>
         </div>
         <div className='form-buttons'>
-          <button type='submit'>
+          <button type='button' onClick={handleSubmit}>
             Cadastrar
           </button>
         </div>
@@ -50,3 +107,5 @@ export const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
     </Modal>
   );
 };
+
+export default PurchaseModalForm;
