@@ -7,7 +7,7 @@ interface CreateTelephone {
 }
 
 interface Telephone extends CreateTelephone {
-  id: string;  // id é obrigatório
+  id: string;
 }
 
 export const getTelephones = async (clientId: string): Promise<Telephone[]> => {
@@ -32,4 +32,10 @@ export const updateTelephone = async (clientId: string, telephoneId: string, dat
 
 export const deleteTelephone = async (clientId: string, telephoneId: string): Promise<void> => {
   await axios.delete(`${apiUrl}/telephones/${clientId}/${telephoneId}`);
+};
+
+// Nova função para verificar se o telefone está registrado
+export const checkTelephoneRegistered = async (clientId: string, number: string): Promise<boolean> => {
+  const response = await axios.get(`${apiUrl}/telephones/${clientId}/check-telephone`, { params: { number } });
+  return response.data.isRegistered;
 };

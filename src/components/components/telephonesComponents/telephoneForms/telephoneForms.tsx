@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Modal from 'react-modal';
-import { createTelephone, updateTelephone } from '../../../services/telephoneService';
+import { createTelephone, updateTelephone, checkTelephoneRegistered } from '../../../services/telephoneService';
 import Alert from '../../alert/alert';
 import './telephoneForms.css';
 
@@ -14,7 +14,7 @@ interface Telephone extends CreateTelephone {
     id: string;
 }
 
-interface PurchaseModalFormProps {
+interface TelephoneFormModalProps {
     isVisible: boolean;
     onClose: () => void;
     telephone: Telephone | null;
@@ -23,7 +23,7 @@ interface PurchaseModalFormProps {
     clientId: string;
 }
 
-const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
+const TelephoneFormModal: React.FC<TelephoneFormModalProps> = ({
     isVisible,
     onClose,
     telephone,
@@ -62,6 +62,15 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
         const data: CreateTelephone = { numero: numero.replace(/\D/g, '') }; // Enviar apenas números
 
         try {
+            if (!isEditing || isEditing) {
+                // Verifica se o telefone já está cadastrado para o cliente
+                const isRegistered = await checkTelephoneRegistered(clientId, data.numero);
+                if (isRegistered) {
+                    setAlertMessage('Telefone já cadastrado.');
+                    return;
+                }
+            }
+
             if (isEditing && telephone?.id) {
                 await updateTelephone(clientId, telephone.id, data);
             } else {
@@ -98,7 +107,7 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
             ariaHideApp={false}
         >
             <div className='modal-telephones-header'>
-                <h2>{isEditing ? 'Editar Telephone' : 'Cadastrar Telephone'}</h2>
+                <h2>{isEditing ? 'Editar Telefone' : 'Cadastrar Telefone'}</h2>
                 <button onClick={onClose} className='close-btn' aria-label="Fechar modal">
                     &times;
                 </button>
@@ -113,7 +122,7 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
                         placeholder='Telefone...'
                         value={handleNumeroMask(numero)} // Aplica a máscara ao valor exibido
                         onChange={(e) => setNumero(handleNumeroMask(e.target.value))} // Aplica a máscara ao digitar
-                        aria-label="Numero do telefone"
+                        aria-label="Número do telefone"
                     />
                     <div className='form-buttons'>
                         <button type='submit'>
@@ -126,4 +135,4 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
     );
 }
 
-export default PurchaseModalForm;
+export default TelephoneFormModal;
