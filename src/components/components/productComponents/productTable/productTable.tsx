@@ -4,6 +4,7 @@ import ProductForm from '../productForm/productForm';
 import { deleteProduct } from '../../../services/productService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
+import Alert from '../../alert/alert';
 
 interface ProductTableProps {
   produtos: Array<any>;
@@ -22,6 +23,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>(null);
   const [productList, setProductList] = useState<any[]>(produtos);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setProductList(produtos);
@@ -30,7 +32,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
   const handleEdit = (product: any) => {
     setEditingProduct(product);
     setIsModalVisible(true);
-    loadProducts(); // Chama a função loadProducts após a edição
+    // Chama loadProducts somente se a edição for concluída
   };
 
   const handleCloseModal = () => {
@@ -41,13 +43,21 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
   const handleDelete = async (productId: string) => {
     if (window.confirm('Deseja realmente excluir o produto?')) {
       try {
-        await deleteProduct(productId);
-        loadProducts(); // Chama a função loadProducts após a exclusão
-        setProductList(productList.filter((product) => product.id !== productId)); // Atualiza o estado local do productList
+        const result = await deleteProduct(productId);
+        if (!result.status) {
+          setAlertMessage(result.mensagem); // Exibe a mensagem de erro do backend
+        } else {
+          loadProducts();
+        }
       } catch (error) {
         console.error('Erro ao excluir o produto:', error);
+        setAlertMessage('Ocorreu um erro ao excluir o produto.');
       }
     }
+  };
+
+  const handleCloseAlert = () => {
+    setAlertMessage(null);
   };
 
   return (
@@ -88,6 +98,12 @@ const ProductTable: React.FC<ProductTableProps> = ({ produtos, loadProducts, isE
           isEditing={true}
           loadProducts={loadProducts}
           productList={productList}
+        />
+      )}
+      {alertMessage && (
+        <Alert
+          message={alertMessage}
+          onClose={handleCloseAlert}
         />
       )}
     </div>
