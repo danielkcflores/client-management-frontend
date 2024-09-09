@@ -1,18 +1,14 @@
 import axios from 'axios';
 
 // Define a URL base para a API de compras
-const apiUrl = 'http://192.168.15.103:3000/purchases';
+const apiUrl = 'http://localhost:3000/purchases';
 
-// Função para criar uma nova compra
-export const createPurchase = async (clienteId: number, productId: number) => {
+export const createPurchase = async (purchase: { clienteId: number; products: { productId: number; quantity: number }[] }) => {
   try {
-    const response = await axios.post(`${apiUrl}/cadastrar`, {
-      clienteId,
-      productId,
-    });
+    const response = await axios.post(`${apiUrl}`, purchase);
     return response.data;
-  } catch (error) {
-    console.error('Error creating purchase:', error);
+  } catch (error: any) {
+    console.error('Error creating purchase:', error.response ? error.response.data : error.message);
     throw error;
   }
 };

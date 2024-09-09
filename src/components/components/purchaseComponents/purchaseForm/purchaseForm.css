@@ -1,80 +1,173 @@
 .modal-purchase-overlay {
-    background-color: #6943B480; /* Fundo verde transparente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  background-color: #6943B480;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal-purchase {
+  background-color: #000; /* Cor de fundo do modal-purchase */
+  border-radius: 10px;
+  width: 80vw;
+  height: 70vh;
+  padding: 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-purchase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00B4FF;
+  border-radius: 50px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-left: 25px;
+}
+
+.modal-purchase-content {
+  display: flex;
+  margin-top: 1vh;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10%;
+}
+
+.form-container {
+  width: 50%;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column; /* Alinha os elementos em coluna */
+  gap: 15vh; /* Espaço entre os inputs */
+}
+
+.cart-container {
+  height: 100%;
+  width: 50%;
+  overflow-x: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-height: 28vh;
+  border-radius: 20px 20px 0px 0px;
+  border: solid 2px #00B4FF;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 20px; /* Adiciona espaço entre a tabela e o botão */
+}
+
+.submit-button {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+  border-radius: 20px;
+  height: 35px;
+  width: 200px;
+  cursor: pointer;
+  align-self: flex-end; /* Alinha o botão à direita */
+  margin-top: 53vh;
+  position: fixed;
+}
+
+
+th, td {
+  border: 1px solid #00B4FF;
+  text-align: center;
+  color: #00B4FF;
+  font-size: 14px;
+
+  :last-child {
+    border-right: none;
   }
-  
-  .modal-purchase {
-    background-color: #000; /* Cor de fundo do modal-purchase */
-    border-radius: 10px;
-    width: 400px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    position: relative;
-  }
-  
-  .modal-purchase-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #00B4FF;
-    border-radius: 50px;
-  }
-  
-  .modal-purchase-header h2 {
-    margin-left: 25px;
-    color: #000;
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .close-btn {
-    background-color: #BB2C5C;
-    font-size: 20px;
-    margin-right: 25px;
-    cursor: pointer;
-  }
-  
-  .modal-purchase-form {
-    padding: 20px;
-    background-color: #000;
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-  }
-  
-  .modal-purchase-form select {
-    display: flex;
-    align-self: center;
-    border-radius: 20px;
-    padding-left: 10px;
-    background-color: #000;
-    height: 30px;
-    color: #00B4FF;
-    border-color: #00B4FF;
-    width: 100%;
-  }
-  
-  .form-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  .form-buttons button {
-    border-radius: 20px;
-    height: 30px;
-    width: 100px;
-    border-color: #00B4FF;
-    background-color: #00B4FF;
-    cursor: pointer;
-  }
-  
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+
+.select-container {
+  margin-bottom: 40px;
+  position: relative; /* Para posicionar as sugestões */
+}
+
+.select-container input {
+  background-color: black;
+  color: #00B4FF;
+  border: 1px solid #00B4FF;
+  border-radius: 20px;
+  padding: 5px 5px 5px 10px;
+  width: 100%;
+}
+
+.quantity-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Garante que a largura seja a mesma dos inputs */
+}
+
+.purchase-quantity-label {
+  color: #00B4FF; /* Mantém a mesma cor do input */
+  margin-bottom: 10px; /* Espaçamento entre o label e o input */
+  margin-left: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center; /* Alinha o botão ao centro verticalmente com o input */
+  gap: 10px; /* Espaço entre o input e o botão */
+  height: 30px;
+}
+
+.purchase-quantity-input {
+  width: 70%; /* Ajuste para garantir que o input e o botão tenham o mesmo tamanho */
+  height: 26px; /* Aumenta a altura do input para igualar ao botão */
+  background-color: black;
+  color: #00B4FF;
+  border: 1px solid #00B4FF;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+.add-cart-button {
+  background-color: #00B4FF;
+  border-radius: 20px;
+  color: black;
+  border-color: #00B4FF;
+  cursor: pointer;
+  height: 30px; /* Igual ao input */
+  display: flex;
+  align-items: center; /* Centraliza o ícone no botão */
+  justify-content: center;
+  align-self: center;
+  position: relative;
+  bottom: 5px;
+}
+
+.autocomplete-suggestions {
+  border-radius: 5px;
+  background-color: #00B4FF80;
+  padding: 10px 0px 10px 10px;
+  color: #000;
+  z-index: 1000;
+  margin-left: 3%;
+  width: 94%;
+  max-height: 150px; /* Altura máxima para a lista */
+  overflow-y: auto; /* Rolagem vertical se necessário */
+  cursor: pointer;
+  position:absolute;
+}

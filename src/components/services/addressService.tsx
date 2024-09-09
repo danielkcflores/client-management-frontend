@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.15.103:3000/clients'
+const apiUrl = 'http://localhost:3000/clients'
 
 interface CreateAddress {
   rua: string;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.15.103:3000/products';
+const apiUrl = 'http://localhost:3000/products';
 
 export const getProducts = async (): Promise<any> => {
   try {

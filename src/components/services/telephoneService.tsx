@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.15.103:3000';
+const apiUrl = 'http://localhost:3000';
 
 interface CreateTelephone {
   numero: string;
