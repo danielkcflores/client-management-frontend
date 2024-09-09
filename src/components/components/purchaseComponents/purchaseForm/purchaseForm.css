@@ -46,37 +46,46 @@
   margin-right: 20px;
   display: flex;
   flex-direction: column; /* Alinha os elementos em coluna */
-  gap: 15vh; /* Espaço entre os inputs */
+  gap: 10.4vh; /* Espaço entre os inputs */
 }
 
 .cart-container {
-  height: 100%;
   width: 50%;
   overflow-x: auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  max-height: 28vh;
+  max-height: 32.4vh;
   border-radius: 20px 20px 0px 0px;
   border: solid 2px #00B4FF;
 }
 
 table {
   width: 100%;
-  margin-bottom: 20px; /* Adiciona espaço entre a tabela e o botão */
+}
+
+.total-price-container {
+  color: #00B4FF;
+  width: 40%;
+  justify-self: flex-start;
+  align-self: flex-start;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 53.5vh;
+  position: fixed;
 }
 
 .submit-button {
   background-color: #00B4FF;
   border-color: #00B4FF;
   border-radius: 20px;
-  height: 35px;
-  width: 200px;
-  cursor: pointer;
-  align-self: flex-end; /* Alinha o botão à direita */
+  height: 30px;
+  width: 150px;
+  align-self: flex-end;
   margin-top: 53vh;
   position: fixed;
+  cursor: pointer;
+  z-index: 1;
 }
 
 
@@ -127,8 +136,19 @@ th, td {
 .quantity-controls {
   display: flex;
   align-items: center; /* Alinha o botão ao centro verticalmente com o input */
+  justify-content: space-between;
   gap: 10px; /* Espaço entre o input e o botão */
   height: 30px;
+}
+
+.quantity-controls-button {
+  width: 30px; /* Ajuste para garantir que o input e o botão tenham o mesmo tamanho */
+  height: 26px; /* Aumenta a altura do botão para igualar ao input */
+  background-color: black;
+  color: #00B4FF;
+  border: 1px solid #00B4FF;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 .purchase-quantity-input {

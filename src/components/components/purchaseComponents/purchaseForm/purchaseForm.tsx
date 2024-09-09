@@ -156,6 +156,7 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
         };
   
         await createPurchase(purchaseData);
+        resetForm();
         onPurchaseCreated();
         onClose();
       } catch (error) {
@@ -165,7 +166,20 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
     } else {
       setError('Selecione um cliente e adicione produtos ao carrinho.');
     }
-  };  
+  };
+
+  const resetForm = () => {
+    setClientInput('');
+    setSelectedClient(null);
+    setProductInput('');
+    setSelectedProduct(null);
+    setQuantity(0);
+    setCartItems([]);
+  };
+
+  const getTotalCartPrice = () => {
+    return cartItems.reduce((total, item) => total + item.totalPrice, 0);
+  };
 
   const handleAlertClose = () => {
     setError(null);
@@ -188,6 +202,8 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
         <div className="form-container">
           {error && <Alert message={error} onClose={handleAlertClose} />}
           <div className="select-container">
+          <div className='quantity-container'>
+          <label className='purchase-quantity-label' htmlFor="quantity">Cliente:</label></div>
             <input
               type="text"
               placeholder="Digite o nome do cliente"
@@ -209,6 +225,8 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
             )}
           </div>
           <div className="select-container">
+          <div className='quantity-container'>
+          <label className='purchase-quantity-label' htmlFor="quantity">Produto:</label></div>
             <input
               type="text"
               placeholder="Digite o nome do produto"
@@ -265,9 +283,9 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
           <td>{item.product.name}</td>
           <td>
             <div className="quantity-controls">
-              <button onClick={() => handleQuantityChange(item.product.id, -1)}>-</button>
+              <button className='quantity-controls-button' onClick={() => handleQuantityChange(item.product.id, -1)}>-</button>
               {item.quantity}
-              <button onClick={() => handleQuantityChange(item.product.id, 1)}>+</button>
+              <button className='quantity-controls-button' onClick={() => handleQuantityChange(item.product.id, 1)}>+</button>
             </div>
           </td>
           <td>R${item.unitPrice}</td>
@@ -277,8 +295,11 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
     </tbody>
   </table>
   <button className="submit-button" onClick={handleSubmit}>
-    Cadastrar Compra
+    Finalizar
   </button>
+  <div className="total-price-container">
+            Total do Carrinho: R${getTotalCartPrice().toFixed(2)}
+          </div>
 </div>
 
       </div>
