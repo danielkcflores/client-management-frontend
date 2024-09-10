@@ -1,4 +1,4 @@
-/* src/styles/reportTable.css */
+/* src/styles/purchaseTable.css */
 .table-report-container {
   padding: 16px;
 }
@@ -21,4 +21,13 @@ th, td {
   text-align: center;
   color: #00B4FF;
   font-size: 16px;
+}
+
+.order-total-row {
+  background-color: rgba(0, 180, 255, 0.3); /* Azul transparente */
+  font-weight: bold;
+}
+
+.order-total-row td {
+  border: none; /* Remove as bordas da linha de totalização */
 }
