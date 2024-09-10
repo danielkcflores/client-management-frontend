@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import './purchaseForm.css'; // Certifique-se de que este CSS está correto para o seu modal
-import { getClients, searchClientes } from '../../../services/clientService'; // Ajuste o caminho conforme necessário
-import { getProducts, searchProducts } from '../../../services/productService'; // Ajuste o caminho conforme necessário
-import { createPurchase } from '../../../services/purchaseService'; // Ajuste o caminho conforme necessário
-import Alert from '../../alert/alert'; // Certifique-se de que o caminho está correto
+import './purchaseForm.css'; 
+import { getClients, searchClientes } from '../../../services/clientService';
+import { getProducts, searchProducts } from '../../../services/productService';
+import { createPurchase } from '../../../services/purchaseService';
+import Alert from '../../alert/alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 Modal.setAppElement('#root');
 
@@ -25,29 +25,29 @@ interface Product {
 interface PurchaseModalFormProps {
   isVisible: boolean;
   onClose: () => void;
-  onPurchaseCreated: () => void; // Nova prop para a função de atualização
-  products: Product[]; // Lista de produtos recebida como prop
+  onPurchaseCreated: () => void;
+  products: Product[];
 }
 
 const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
   isVisible,
   onClose,
   onPurchaseCreated,
-  products, // Recebe a lista de produtos
+  products,
 }) => {
   const [clients, setClients] = useState<Client[]>([]);
   const [filteredClients, setFilteredClients] = useState<Client[]>([]);
-  const [clientInput, setClientInput] = useState<string>(''); // Input para o nome do cliente
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null); // Cliente selecionado
+  const [clientInput, setClientInput] = useState<string>('');
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [productInput, setProductInput] = useState<string>(''); // Input para o nome do produto
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Produto selecionado
+  const [productInput, setProductInput] = useState<string>('');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(0);
   const [cartItems, setCartItems] = useState<{ product: Product; quantity: number; unitPrice: number; totalPrice: number }[]>([]);
+  const [highlightedSuggestion, setHighlightedSuggestion] = useState<number | null>(null);
 
   useEffect(() => {
-    // Função para buscar clientes
     const fetchClients = async () => {
       try {
         const data = await getClients();
@@ -78,8 +78,8 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
 
   const handleClientSelect = (client: Client) => {
     setSelectedClient(client);
-    setClientInput(client.name); // Preenche o input com o nome do cliente selecionado
-    setFilteredClients([]); // Limpa as sugestões após a seleção
+    setClientInput(client.name);
+    setFilteredClients([]);
   };
 
   const handleProductInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,8 +99,8 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
 
   const handleProductSelect = (product: Product) => {
     setSelectedProduct(product);
-    setProductInput(product.name); // Preenche o input com o nome do produto selecionado
-    setFilteredProducts([]); // Limpa as sugestões após a seleção
+    setProductInput(product.name);
+    setFilteredProducts([]);
   };
 
   const handleAddToCart = () => {
@@ -127,7 +127,7 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
       setSelectedProduct(null);
     }
   };
-  
+
   const handleQuantityChange = (productId: number, delta: number) => {
     setCartItems(prevItems => {
       return prevItems.reduce((acc, item) => {
@@ -143,7 +143,7 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
       }, [] as typeof cartItems);
     });
   };
-  
+
   const handleSubmit = async () => {
     if (selectedClient && cartItems.length > 0) {
       try {
@@ -151,10 +151,10 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
           clienteId: selectedClient.id,
           products: cartItems.map(item => ({
             productId: item.product.id,
-            quantity: item.quantity,  // Verifique se a quantidade está sendo passada corretamente
+            quantity: item.quantity,
           })),
         };
-  
+
         await createPurchase(purchaseData);
         resetForm();
         onPurchaseCreated();
@@ -185,6 +185,21 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
     setError(null);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, type: 'client' | 'product') => {
+    if (e.key === 'Enter' && highlightedSuggestion !== null) {
+      if (type === 'client' && filteredClients[highlightedSuggestion]) {
+        handleClientSelect(filteredClients[highlightedSuggestion]);
+      } else if (type === 'product' && filteredProducts[highlightedSuggestion]) {
+        handleProductSelect(filteredProducts[highlightedSuggestion]);
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      if (highlightedSuggestion !== null) {
+        setHighlightedSuggestion((prev) => (prev === filteredClients.length - 1 ? 0 : prev! + 1));
+      }
+    }
+  };
+
   return (
     <Modal
       isOpen={isVisible}
@@ -203,47 +218,64 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
           {error && <Alert message={error} onClose={handleAlertClose} />}
           <div className="select-container">
           <div className='quantity-container'>
-          <label className='purchase-quantity-label' htmlFor="quantity">Cliente:</label></div>
+              <label className='purchase-quantity-label' htmlFor="client">Cliente:</label>
+            </div>
             <input
               type="text"
+              id="client"
               placeholder="Digite o nome do cliente"
               value={clientInput}
               onChange={handleClientInputChange}
+              onKeyDown={(e) => handleKeyDown(e, 'client')}
+              className={filteredClients.length > 0 ? 'input-with-suggestions' : ''}
             />
             {filteredClients.length > 0 && (
               <div className="autocomplete-suggestions">
-                {filteredClients.map(client => (
+                {filteredClients.map((client, index) => (
                   <div
                     key={client.id}
                     onClick={() => handleClientSelect(client)}
-                    className="autocomplete-suggestion"
+                    className={`autocomplete-suggestion ${highlightedSuggestion === index ? 'highlighted' : ''}`}
+                    onMouseEnter={() => setHighlightedSuggestion(index)}
                   >
-                    {client.name} - {client.cpf}
+                    <span className="suggestion-text">
+                      {client.name.substring(0, clientInput.length)}
+                      <span className="missing-text">{client.name.substring(clientInput.length)}</span>
+                    </span>
+                    <div>{client.cpf}</div>
                   </div>
                 ))}
               </div>
             )}
           </div>
           <div className="select-container">
-          <div className='quantity-container'>
-          <label className='purchase-quantity-label' htmlFor="quantity">Produto:</label></div>
+            <div className='quantity-container'>
+              <label className='purchase-quantity-label' htmlFor="product">Produto:</label>
+            </div>
             <input
               type="text"
+              id="product"
               placeholder="Digite o nome do produto"
               value={productInput}
               onChange={handleProductInputChange}
+              onKeyDown={(e) => handleKeyDown(e, 'product')}
+              className={filteredProducts.length > 0 ? 'input-with-suggestions' : ''}
             />
             {filteredProducts.length > 0 && (
               <div className="autocomplete-suggestions">
-                {filteredProducts.map(product => (
+                {filteredProducts.map((product, index) => (
                   <div
                     key={product.id}
                     onClick={() => handleProductSelect(product)}
-                    className="autocomplete-suggestion"
+                    className={`autocomplete-suggestion ${highlightedSuggestion === index ? 'highlighted' : ''}`}
+                    onMouseEnter={() => setHighlightedSuggestion(index)}
                   >
-                    {product.name} - R$
-                    {typeof product.price === 'string' ? product.price : 'Preço Indisponível'}
-                </div>
+                    <span className="suggestion-text">
+                      {product.name.substring(0, productInput.length)}
+                      <span className="missing-text">{product.name.substring(productInput.length)}</span>
+                    </span>
+                    <div>R${product.price}</div>
+                  </div>
                 ))}
               </div>
             )}
@@ -268,43 +300,43 @@ const PurchaseModalForm: React.FC<PurchaseModalFormProps> = ({
           </div>
         </div>
         <div className="cart-container">
-  <table>
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Quantidade</th>
-        <th>Preço Unitário</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {cartItems.map((item) => (
-        <tr key={item.product.id}>
-          <td>{item.product.name}</td>
-          <td>
-            <div className="quantity-controls">
-              <button className='quantity-controls-button' onClick={() => handleQuantityChange(item.product.id, -1)}>-</button>
-              {item.quantity}
-              <button className='quantity-controls-button' onClick={() => handleQuantityChange(item.product.id, 1)}>+</button>
-            </div>
-          </td>
-          <td>R${item.unitPrice}</td>
-          <td>R${item.totalPrice.toFixed(2)}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-  <button className="submit-button" onClick={handleSubmit}>
-    Finalizar
-  </button>
-  <div className="total-price-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <tr key={item.product.id}>
+                  <td>{item.product.name}</td>
+                  <td>
+                    <div className="quantity-controls">
+                      <button className='quantity-controls-button' onClick={() => handleQuantityChange(item.product.id, -1)}>-</button>
+                      {item.quantity}
+                      <button className='quantity-controls-button' onClick={() => handleQuantityChange(item.product.id, 1)}>+</button>
+                    </div>
+                  </td>
+                  <td>R${item.unitPrice}</td>
+                  <td>R${item.totalPrice.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button className="submit-button" onClick={handleSubmit}>
+          <FontAwesomeIcon icon={faCheck} />
+          </button>
+          <div className="total-price-container">
             Total do Carrinho: R${getTotalCartPrice().toFixed(2)}
           </div>
-</div>
-
+        </div>
       </div>
     </Modal>
   );
 };
 
 export default PurchaseModalForm;
+

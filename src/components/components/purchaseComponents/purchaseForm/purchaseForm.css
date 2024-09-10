@@ -180,14 +180,45 @@ th, td {
 
 .autocomplete-suggestions {
   border-radius: 5px;
-  background-color: #00B4FF80;
+  background-color: #00B4FF;
   padding: 10px 0px 10px 10px;
   color: #000;
   z-index: 1000;
-  margin-left: 3%;
+  margin-left: 3.5%;
   width: 94%;
   max-height: 150px; /* Altura máxima para a lista */
   overflow-y: auto; /* Rolagem vertical se necessário */
   cursor: pointer;
   position:absolute;
+}
+
+
+.autocomplete-suggestion.highlighted {
+  margin-left: -10px;
+  background-color: #4ac9ff; /* Cor de fundo mais clara para a sugestão selecionada */
+}
+
+/* Adicione a classe para o texto que precisa ser preenchido */
+.autocomplete-suggestion .suggestion-text {
+  color: #000; /* Cor normal */
+}
+
+.autocomplete-suggestion .suggestion-text .missing-text {
+  color: #00000080; /* Texto meio transparente */
+}
+
+/* Adicione a classe para o input */
+.select-container input {
+  background-color: black;
+  color: #00B4FF;
+  border: 1px solid #00B4FF;
+  border-radius: 20px;
+  padding: 5px 5px 5px 10px;
+  width: 100%;
+}
+
+/* Adiciona estilo ao texto do input para quando há sugestões */
+.input-with-suggestions {
+  background-color: black;
+  color: #00B4FF80; /* Texto transparente para sugestões */
 }
